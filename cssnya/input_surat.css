@@ -1,0 +1,22 @@
+.forminput_surat {
+  width: 100%;
+  /*max-width: 400px;*/
+  padding: 15px;
+  margin: auto;
+  background-color:  #f46f6f;
+  border-radius:10px;
+  padding: 5px;
+  float: left;
+  box-shadow: 10px 10px 5px grey;
+  margin-bottom: 10px;
+}
+.forminput_disp{
+  width: 100%;
+  margin: auto;
+  background-color:#6faef4;
+  border-radius:10px;
+  padding: 15px;
+  float: left;
+  box-shadow: 10px 10px 5px grey;
+  margin-bottom: 10px;
+}
