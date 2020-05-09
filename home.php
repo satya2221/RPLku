@@ -88,13 +88,24 @@
                 	<div class="row">
                 		<div class="col-6">
                 <p>Periksa surat-surat yang baru saja dimasukkan ke dalam sistem</p>
+                <strong>Surat Baru : </strong>
+                <?php  
+                  $query_home_surat = mysqli_query($link, "SELECT * FROM surat");
+                  $banyak_surat =  mysqli_num_rows($query_home_surat);
+
+                  $query_home_disp = mysqli_query($link, "SELECT * FROM lembar_disposisi");
+                  $banyak_disp =  mysqli_num_rows($query_home_disp);
+
+                  $surat_baru = $banyak_surat - $banyak_disp;
+                  echo $surat_baru;
+                ?>
                 </div>
                 		<div class="col-6">
                 			<img class="float-right" src="cssnya/asset/mail.svg" width="80%" height="80%">
                 		</div>
                 </div>
             	</div>
-            	<center>
+            	<center> 
             		Click box ini untuk detail
                 </center>
             </div>
@@ -106,6 +117,14 @@
                 	<div class="row">
                 		<div class="col-6">
                				 <p>Periksa Disposisi yang sudah dibuat dan sedang/akan dilaksanakan</p>
+                       <strong>On-going : </strong>
+                       <?php 
+                          $query_ars=mysqli_query($link, "SELECT * FROM arsip"); 
+                          $banyaknya = mysqli_num_rows($query_ars);
+
+                          $disp_new  = $banyak_disp - $banyaknya;
+                          echo $disp_new;
+                        ?>
                 		</div>
                 		<div class="col-6">
                 			<img class="float-right" src="cssnya/asset/document.svg" width="80%" height="80%">
@@ -124,14 +143,18 @@
                 	<div class="row">
                 		<div class="col-6">
                				 <p>Lihat surat dan lembar disposisi yang sudah selesai dilaksanakan</p>
+                       <strong>Arsip saat ini :</strong>
+                        <?php 
+                            echo $banyaknya;
+                        ?>
                 		</div>
                 		<div class="col-6">
                 			<img class="float-right"  src="cssnya/asset/checklist.svg" width="80%" height="80%">
                 		</div>
                 </div>
             	</div>
-            	<center>
-            		Click box ini untuk detail
+            	<center> 
+                Clickbox untuk detail
                 </center>
             </div>
         </a>
@@ -177,30 +200,44 @@
 				<th>Pelaksana</th>
 				<th>Keterangan</th>
 			</tr>
+      <!-- SELECT * FROM lembar_disposisi WHERE no_disposisi NOT IN (SELECT no_disposisi FROM arsip) -->
+      <?php 
+        $berlangsung = mysqli_query($link, "SELECT * FROM lembar_disposisi ldp INNER JOIN melaksanakan m ON m.no_disposisi = ldp.no_disposisi INNER JOIN pegawai ON ldp.nip_pelaksana=nip");?>
+        
+      <?php  while ($datajalan = mysqli_fetch_array($berlangsung)) {?>
 			<tr>
-				<td>1</td>
-				<td>Satya</td>
-				<td>OTW</td>
+				<td><?php echo $datajalan['no_disposisi']; ?></td>
+				<td><?php echo $datajalan['nama']; ?></td>
+				<td><?php echo $datajalan['status']; ?></td>
 			</tr>
-			<tr>
-				<td>2</td>
-				<td>Satya</td>
-				<td>OTW</td>
-			</tr>
-      <tr>
-        <td>2</td>
-        <td>Satya</td>
-        <td>OTW</td>
-      </tr>
+      <?php } ?>
 		</table>
 	</div>
 	</div>
 	<div class="p-2 bd-light" style="background-color:#afdbf5">
 		<h1>Keseluruhan data</h1>
     <center>
-      <h5><strong>Surat Masuk : </strong></h5>
-      <h5><strong>Disposisi : </strong></h5>
-      <h5><strong>Selesai : </strong></h5>         
+      <h5>
+        <strong>Surat Masuk :
+          <?php  
+            echo $banyak_surat;
+          ?> 
+        </strong>
+      </h5>
+      <h5>
+        <strong>Disposisi : 
+          <?php  
+            echo $banyak_disp;
+          ?> 
+        </strong>
+      </h5>
+      <h5>
+        <strong>Selesai : 
+          <?php  
+            echo $banyaknya;
+          ?> 
+        </strong>
+      </h5>         
     </center>
 	</div>
 </div>
