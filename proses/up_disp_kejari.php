@@ -1,6 +1,9 @@
 <?php 
 	include "koneksi.php";
+	require "../kripto_side/playfair.php";
+
     session_start();
+    $playfair = new playfair();
     $email = $_SESSION['email'];
     $role = $_SESSION['role'];
 
@@ -14,6 +17,8 @@
 
     if ($role=="Kepala Kantor") {
       $isi_disposisi = $_POST['file_disposisi'];
+      $playfair->simpan_spasi($no_surat,$disposisi_kejari);
+      $disposisi_kejari = $playfair->enkripsi($no_surat,$disposisi_kejari);
     	$querynya = mysqli_query($link,"INSERT INTO lembar_disposisi 
     				VALUES('$no_disposisi','$isi_surat','$no_surat','$tgl_terbit','$isi_disposisi','$disposisi_kejari','$pelaksana')");
     	if ($querynya) {

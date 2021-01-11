@@ -25,12 +25,20 @@
 		?>
 				<h5 align="center">berhasil logout</h5> 
 		<?php     }
+                elseif($_GET['pesan']=="regisberhasil"){
+        ?>
+                <h5 align="center">Berhasil registrasi</h5>
+        <?php        }
+                elseif($_GET['pesan'] == "regisgagal"){
+        ?>
+                <h5 align="center">Gagal registrasi</h5>
+        <?php        }
             }?>
 			<label for="inputEmail" class="sr-only">Email address</label>
 			<input type="email" id="inputEmail" name="email" class="form-control" placeholder="Email address" required="" autofocus="">
 			<label for="inputPassword" class="sr-only">Password</label>
 			<input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required="">
-			<label class="mb-1">Kontak admin untuk registrasi</label>
+			<label class="mb-1"><a href="registrasi.php">Registrasi disini</a></label>
 			<button class="btn btn-lg btn-primary btn-block mt-3" type="submit" value="Login">Sign in</button>
 	</form>
 </body>

@@ -1,4 +1,32 @@
-<?php   
+<?php
+    require "kripto_side/angka_inisiasi.php";
+    $objet=new angka_inisiasi();
+    $eaa = $objet ->find_n();
+    $jaa = $objet ->find_e();
+    $tet = $objet ->o_n();
+//   x echo $eaa."<br>";
+//   x echo $jaa."<br>".$tet;
+
+    require "kripto_side/playfair.php";
+    $objek = new playfair();
+//    $array_kunci = $objek ->BuatKunci();
+//    print_r($array_kunci);
+//    $misal_2 = $objek ->simpan_spasi("kamyu","GOoD BrOOMSS");
+//    print_r($misal_2);
+//    echo "<br>";
+//    print_r($objek->rombak_pesan("kamyu","GOoD BrOOMSS"));
+//   x echo "<br>";
+//   x $objek ->simpan_spasi("kamyu","GOoD BrOOMSS");
+//    $enkripsian = $objek->enkripsi("GOoD BrOOMS");
+//    echo $enkripsian."<br>";
+//  x  print_r($objek->spasi);
+//   x echo "<br>";
+    //print_r($objek->dekripsi("kamyu",$enkripsian));
+//   x echo "<br>";
+//   x print_r($objek->spasi);
+//   x echo "<br>";
+
+
     include "proses/koneksi.php";
     session_start();
     if (empty($_SESSION['email'])) {
@@ -81,7 +109,7 @@
 </div>
 <div class="d-flex justify-content-center flex-row p-2 justify-content-center">
   <?php if ($role != "Kepala Bagian") : ?>
-	<a href="surat.php" style="color: white;">
+	     <a href="surat.php" style="color: white;">
             <div class="flex-fill p-2 bd-danger" style="background-color: #f46f6f; ">
                 <h3><strong>Surat Masuk</strong></h3>
                 <div class="container">

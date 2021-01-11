@@ -2,7 +2,7 @@
     session_start();
     include "koneksi.php";
     $email = $_POST['email'];
-    $password = $_POST['password'];
+    $password = md5($_POST['password']);
     
     $query = mysqli_query($link,"SELECT * FROM pegawai where email='$email' and pass='$password'") or die (mysqli_error($link));
     $data = mysqli_fetch_array($query);

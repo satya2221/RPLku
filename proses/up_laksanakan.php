@@ -1,6 +1,9 @@
 <?php 
 	include "koneksi.php";
+    require "../kripto_side/playfair.php";
     session_start();
+
+    $playfair = new playfair();
     $email = $_SESSION['email'];
     $role = $_SESSION['role'];
 
@@ -65,6 +68,8 @@
                 }
             } 
             else {
+              $playfair->simpan_spasi($no_surat,$respon);
+              $respon = $playfair->enkripsi($no_surat,$respon);
               $query = mysqli_query($link,"UPDATE melaksanakan SET resp='$respon', status='dijalankan'WHERE no_disposisi='$no_disposisi' ");
               if ($query) {
                 header("location:../disposisi.php?proses=berhasil");

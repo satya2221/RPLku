@@ -1,6 +1,9 @@
 <?php   
     include "proses/koneksi.php";
+    require "kripto_side/playfair.php";
+
     session_start();
+    $playfair = new playfair();
     if (empty($_SESSION['email'])) {
         header("location:login.php?pesan=belum_login");
     }
@@ -135,7 +138,8 @@
     <?php if($role=="Kepala Kantor"): ?>
       <textarea class="form-control" id="instruksiDisposisi" name="instruksiKajari" rows="4" required></textarea>
     <?php else: ?>
-      <textarea class="form-control" id="instruksiDisposisi" name="instruksiKajari" rows="4" readonly required><?php echo $datadisposisi['disposisi_kejari'];?></textarea>
+      <textarea class="form-control" id="instruksiDisposisi" name="instruksiKajari" rows="4" readonly required><?php print_r($playfair->dekripsi($datasurat['no_surat'],$datadisposisi['disposisi_kejari'])) ;?>
+      </textarea>
     <?php endif; ?>
     </div>
   </div>

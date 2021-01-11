@@ -1,6 +1,9 @@
 <?php   
     include "proses/koneksi.php";
+    require "kripto_side/playfair.php";
+
     session_start();
+    $playfair = new playfair();
     if (empty($_SESSION['email'])) {
         header("location:login.php?pesan=belum_login");
     }
@@ -144,14 +147,14 @@
   <div class="form-row mx-1">
   <div class="form-group col-md-6">
     <center><label for="instruksiDisposisi"><h5>Instruksi</h5></label></center>
-      <textarea class="form-control" id="instruksiDisposisi" name="instruksiKajari" rows="4" readonly><?php echo $datadisposisi['disposisi_kejari'];?></textarea>
+      <textarea class="form-control" id="instruksiDisposisi" name="instruksiKajari" rows="4" readonly><?php print_r($playfair->dekripsi($datadisposisi['no_surat'],$datadisposisi['disposisi_kejari']));?></textarea>
   </div>
     <div class="form-group col-md-6">
       <center><label for="responDisposisi"><h5>Respon</h5></label></center>
       <?php if($role=="Kepala Bagian"): ?>
-        <textarea class="form-control" id="responDisposisi" name="respon" rows="4" required><?php echo $datadisposisi['resp'];?></textarea>
+        <textarea class="form-control" id="responDisposisi" name="respon" rows="4" required><?php print_r($playfair->dekripsi($datadisposisi['no_surat'],$datadisposisi['resp']));?></textarea>
       <?php else: ?>
-       <textarea class="form-control" id="responDisposisi" name="respon" rows="4" readonly required><?php echo $datadisposisi['resp'];?></textarea>
+       <textarea class="form-control" id="responDisposisi" name="respon" rows="4" readonly required><?php print_r($playfair->dekripsi($datadisposisi['no_surat'],$datadisposisi['resp']));?></textarea>
       <?php endif; ?>
     </div>
   </div>

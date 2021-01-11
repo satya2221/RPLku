@@ -1,6 +1,9 @@
 <?php   
     include "proses/koneksi.php";
+    require "kripto_side/playfair.php";
+
     session_start();
+    $playfair = new playfair();
     if (empty($_SESSION['email'])) {
         header("location:login.php?pesan=belum_login");
     }
@@ -135,7 +138,7 @@
           <td><?php echo $datadisp['tgl_terbit']; ?></td>
           <td><?php echo $datadisp['no_surat']; ?></td>
           <td><?php echo $datadisp['isi_surat']; ?></td>
-        	<td><?php echo $datadisp['disposisi_kejari']; ?></td>
+        	<td><?php print_r($playfair->dekripsi($datadisp['no_surat'],$datadisp['disposisi_kejari'])); ?></td>
           <td><?php echo $datadisp['nip_pelaksana']; ?></td>
           <!-- <?php if(empty($data_pel)): ?>
             <td>Belum ada</td>
