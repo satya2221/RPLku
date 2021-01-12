@@ -1,6 +1,8 @@
 <?php   
     include "proses/koneksi.php";
+    require "kripto_side/angka_inisiasi.php";
     session_start();
+    $rsa = new angka_inisiasi();
     if (empty($_SESSION['email'])) {
         header("location:login.php?pesan=belum_login");
     }
@@ -11,6 +13,7 @@
         $datauser = mysqli_fetch_array($query);
     }
     $querysurat = mysqli_query($link,"SELECT * FROM surat");
+    $no_jabatan = $datauser['nip'];
 ?>
 <!DOCTYPE html>
 <html>
@@ -97,7 +100,7 @@
     	</thead>
       <?php while ($datasurat = mysqli_fetch_array($querysurat)) { ?>
         <tr>
-        	<td><?php echo $datasurat['no_surat']; ?></td>
+        	<td><?php print_r($rsa ->for_dekrip($no_jabatan,$datasurat['no_surat'])); ?></td>
         	<td><?php echo $datasurat['tgl_input']; ?></td>
         	<td><?php echo $datasurat['nip_pengisi']; ?></td>
         	<td><?php echo $datasurat['isi_surat']; ?></td>

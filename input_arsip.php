@@ -1,5 +1,8 @@
 <?php   
     include "proses/koneksi.php";
+    require "kripto_side/angka_inisiasi.php";
+
+    $rsa = new angka_inisiasi();
     session_start();
     if (empty($_SESSION['email'])) {
         header("location:login.php?pesan=belum_login");
@@ -14,6 +17,8 @@
     $querydisp = mysqli_query($link,"SELECT * FROM lembar_disposisi ld INNER JOIN melaksanakan m on ld.no_disposisi= m.no_disposisi WHERE ld.no_disposisi='$no_disposisi'");
     $datadisposisi = mysqli_fetch_array($querydisp);         
     $queryarsip = mysqli_query($link,"SELECT * FROM arsip");
+
+    $no_jabatan = $datauser['nip'];
 ?>
 <!DOCTYPE html>
 <html>
@@ -83,15 +88,15 @@
       <form class="forminput_disp" action="proses/up_arsip.php" method="post" style="color: white;">
         <div class="form-group">
           <label for="input_no_arsip">Input No Arsip</label>
-          <input type="text" class="form-control" id="input_no_arsip" placeholder="xxx/ddmmyyyy/category/ars" name="no_arsip" required>
+          <input type="text" class="form-control" id="input_no_arsip" placeholder="xxx/ddmmyyyy/category/ARS" name="no_arsip" required>
         </div>
         <div class="form-group">
           <label for="input_no_surat">No Surat</label>
-          <h4><input type="text" class="form-control-plaintext" id="input_no_surat" value="<?php echo $datadisposisi['no_surat'];?>" name="no_surat" required readonly></h4>
+          <h4><input type="text" class="form-control-plaintext" id="input_no_surat" value="<?php print_r($rsa ->for_dekrip($no_jabatan, $datadisposisi['no_surat'])) ;?>" name="no_surat" required readonly></h4>
         </div>
         <div class="form-group">
           <label for="input_no_disposisi">No Disposisi</label>
-          <h4><input type="text" class="form-control-plaintext" id="input_no_disposisi" value="<?php echo $datadisposisi['no_disposisi'];?>" name="no_disposisi" required readonly></h4>
+          <h4><input type="text" class="form-control-plaintext" id="input_no_disposisi" value="<?php print_r($rsa ->for_dekrip($no_jabatan, $datadisposisi['no_disposisi']));?>" name="no_disposisi" required readonly></h4>
         </div>
         <div class="form-group">
           <label for="input_isi_surat">File surat</label>

@@ -1,15 +1,20 @@
 <?php 
 	include "koneksi.php";
     require "../kripto_side/playfair.php";
+    require "../kripto_side/angka_inisiasi.php";
     session_start();
 
     $playfair = new playfair();
+    $rsa = new angka_inisiasi();
+
     $email = $_SESSION['email'];
     $role = $_SESSION['role'];
 
     $no_disposisi = $_POST['no_disposisi'];
+    $no_disposisi = $rsa->enkrip($no_disposisi);
     // $isi_surat = $_POST['isi_surat'];
     $no_surat = $_POST['no_surat'];
+    $no_surat = $rsa->enkrip($no_surat);
     // $tgl_terbit = $_POST['tgl_input'];
     // $disposisi_kejari  = $_POST['instruksiKajari'];
     // $pelaksana = $_POST['nip_pelaksana'];
@@ -68,7 +73,7 @@
                 }
             } 
             else {
-              $playfair->simpan_spasi($no_surat,$respon);
+              //$playfair->simpan_spasi($no_surat,$respon);
               $respon = $playfair->enkripsi($no_surat,$respon);
               $query = mysqli_query($link,"UPDATE melaksanakan SET resp='$respon', status='dijalankan'WHERE no_disposisi='$no_disposisi' ");
               if ($query) {

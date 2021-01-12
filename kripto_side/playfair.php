@@ -38,7 +38,7 @@ class playfair
         }
         return $matrix_jadi;
     }
-    public function simpan_spasi($no,$pesan){
+    private function simpan_spasi($no,$pesan){
         if(strpos($pesan," ")!==false){
             $pesan = str_split($pesan);
             $posisi_spasi = array_keys($pesan, " ");
@@ -92,6 +92,7 @@ class playfair
     }
     public function enkripsi($no,$pesan){
         $pesannya = $this->rombak_pesan($pesan);
+        $this->simpan_spasi($no,$pesan);
         $kunci = $this->BuatKunci();
         $teks_cipher = array();
 

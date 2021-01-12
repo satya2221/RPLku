@@ -1,9 +1,11 @@
 <?php   
     include "proses/koneksi.php";
     require "kripto_side/playfair.php";
+    require "kripto_side/angka_inisiasi.php";
 
     session_start();
     $playfair = new playfair();
+    $rsa = new angka_inisiasi();
     if (empty($_SESSION['email'])) {
         header("location:login.php?pesan=belum_login");
     }
@@ -42,6 +44,7 @@
       // }
        //ld INNER JOIN melaksanakan m on ld.no_disposisi= m.no_disposisi
     }
+    $no_jabatan = $data['nip'];
 ?>
 <!DOCTYPE html>
 <html>
@@ -133,10 +136,10 @@
     	</thead>
       <?php while ($datadisp = mysqli_fetch_array($querydisp)) { ?>
         <tr>
-        	<td><?php echo $datadisp['no_disposisi']; ?></td>
+        	<td><?php print_r($rsa ->for_dekrip($no_jabatan, $datadisp['no_disposisi'])); ?></td>
           <td><?php echo $datadisp['isi_disposisi']; ?></td>
           <td><?php echo $datadisp['tgl_terbit']; ?></td>
-          <td><?php echo $datadisp['no_surat']; ?></td>
+          <td><?php print_r($rsa ->for_dekrip($no_jabatan,$datadisp['no_surat'])) ; ?></td>
           <td><?php echo $datadisp['isi_surat']; ?></td>
         	<td><?php print_r($playfair->dekripsi($datadisp['no_surat'],$datadisp['disposisi_kejari'])); ?></td>
           <td><?php echo $datadisp['nip_pelaksana']; ?></td>

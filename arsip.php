@@ -1,6 +1,8 @@
 <?php   
     include "proses/koneksi.php";
+    require "kripto_side/angka_inisiasi.php";
     session_start();
+    $rsa = new angka_inisiasi();
     if (empty($_SESSION['email'])) {
         header("location:login.php?pesan=belum_login");
     }
@@ -17,6 +19,7 @@
     else{
        $queryarsip = mysqli_query($link,"SELECT * FROM arsip a INNER JOIN melaksanakan m on a.no_disposisi= m.no_disposisi");
     }
+    $no_jabatan = $datauser['nip'];
 ?>
 <!DOCTYPE html>
 <html>
@@ -102,12 +105,12 @@
     	</thead>
       <?php while ($dataarsip = mysqli_fetch_array($queryarsip)) { ?>
         <tr>
-        	<td><?php echo $dataarsip['no_arsip']; ?></td>
-        	<td><?php echo $dataarsip['no_surat']; ?></td>
+        	<td><?php print_r($rsa ->for_dekrip($no_jabatan, $dataarsip['no_arsip'])); ?></td>
+        	<td><?php print_r($rsa ->for_dekrip($no_jabatan, $dataarsip['no_surat'])) ; ?></td>
           <?php if($role!="Kepala Bagian"): ?>
         	<td><a href="detail_surat.php?isi_surat=<?php echo $dataarsip['isi_surat']; ?>" target="blank"><?php echo $dataarsip['isi_surat']; ?></a></td>
           <?php endif; ?>
-        	<td><?php echo $dataarsip['no_disposisi']; ?></td>
+        	<td><?php print_r($rsa ->for_dekrip($no_jabatan, $dataarsip['no_disposisi'])) ; ?></td>
           <td><a href="detail_surat.php?isi_surat=<?php echo $dataarsip['isi_disposisi']; ?>" target="blank"><?php echo $dataarsip['isi_disposisi']; ?></a></td>
           <td><a href="detail_surat.php?isi_surat=<?php echo $dataarsip['isi_lpj']; ?>" target="blank"><?php echo $dataarsip['isi_lpj']; ?></a></td>
         </tr>

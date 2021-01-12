@@ -1,9 +1,11 @@
 <?php   
     include "proses/koneksi.php";
     require "kripto_side/playfair.php";
+    require "kripto_side/angka_inisiasi.php";
 
     session_start();
     $playfair = new playfair();
+    $rsa = new angka_inisiasi();
     if (empty($_SESSION['email'])) {
         header("location:login.php?pesan=belum_login");
     }
@@ -21,6 +23,7 @@
     $datadisposisi = mysqli_fetch_array($querydisp);
 
     $querypelaksana = mysqli_query($link,"SELECT * from pegawai where jabatan='Kepala Bagian'");
+    $no_jabatan = $datauser['nip'];
 ?>
 <!DOCTYPE html>
 <html>
@@ -88,9 +91,9 @@
     <label for="input_no_surat"><h5>Input No Disposisi</h5></label>
     <?php if($role=="Sekretaris"): ?>
       <p>Cek apakah sudah sesuai dengan aturan penomoran</p>
-    <input type="text" class="form-control" id="input_no_surat" value="<?php echo $datadisposisi['no_disposisi'];?>" name="no_disposisi" required>
+    <input type="text" class="form-control" id="input_no_surat" value="<?php print_r($rsa ->for_dekrip($no_jabatan, $datadisposisi['no_disposisi']));?>" name="no_disposisi" required>
     <?php else: ?>
-      <input type="text" class="form-control" id="input_no_surat" value="<?php echo $datasurat['no_surat'];?>/disp" name="no_disposisi" readonly>
+      <input type="text" class="form-control" id="input_no_surat" value="<?php print_r($rsa ->for_dekrip($no_jabatan,$datasurat['no_surat']));?>/DISP" name="no_disposisi" readonly>
     <?php endif; ?>
   </div>
   <div class="form-group col-md-6">
@@ -109,7 +112,7 @@
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="input_no_surat"><h5>No Surat</h5></label>
-      <input type="text" class="form-control" id="input_no_surat" name="no_surat" readonly value="<?php echo $datasurat['no_surat'];?>">
+      <input type="text" class="form-control" id="input_no_surat" name="no_surat" readonly value="<?php print_r($rsa ->for_dekrip($no_jabatan,$datasurat['no_surat']));?>">
     </div>
     <div class="form-group col-md-6">
       <label for="isi_surat"><h5>Isi Surat</h5></label>
@@ -127,7 +130,7 @@
         <input type="file" class="form-control-file" id="inputFileDisposisi" name="file_disposisi" required>
       <?php else: ?>
         <label for="inputFileDisposisi"><h5>Isi Disposisi</h5></label>
-        <input type="text" class="form-control" id="inputFileDisposisi" name="file_disposisi" readonly value="<?php echo $datasurat['no_surat'];?>/disp.pdf">
+        <input type="text" class="form-control" id="inputFileDisposisi" name="file_disposisi" readonly value="<?php print_r($rsa ->for_dekrip($no_jabatan,$datasurat['no_surat']));?>/disp.pdf">
       <?php endif; ?>
     </div>
   </div>

@@ -1,9 +1,13 @@
 <?php 
 	include "koneksi.php";
+	require "../kripto_side/angka_inisiasi.php";
     session_start();
+    $rsa = new angka_inisiasi();
     $email = $_SESSION['email'];
     
     $no_surat = $_POST['no_surat'];
+    $no_surat = $rsa->enkrip($no_surat);
+
     $tgl_input = $_POST['tgl_input'];
     $nip_pengisi = $_POST['nip_pengisi'];
 

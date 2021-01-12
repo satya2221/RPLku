@@ -1,12 +1,27 @@
 <?php
     require "kripto_side/angka_inisiasi.php";
     $objet=new angka_inisiasi();
-    $eaa = $objet ->find_n();
-    $jaa = $objet ->find_e();
-    $tet = $objet ->o_n();
-//   x echo $eaa."<br>";
-//   x echo $jaa."<br>".$tet;
+//    $eaa = $objet ->find_n();
+//    $jaa = $objet ->find_e();
+//    $tet = $objet ->o_n();
+//    echo $eaa."<br>";
+//    echo $jaa."<br>".$tet."<br>";
+//    $ascii = unpack("C*", "007/11012021/4/ARS"); //001/20052020/3
+//    print_r($ascii);
+//    echo "<br>";
+//    $baa = pack("C*",...$ascii);
+//    echo $baa."<br>";
+//    //echo strlen($objet->enkrip("006/10012021/4/ARS"))."<br>";
+////    print_r($objet->find_d());
+////    echo "<br>";
+//    $paaa = $objet->enkrip("007/11012021/4/ARS");
+//    print_r($paaa);
+//    //$array_pa = explode("|",$paaa);
+//    echo "<br>";
+//    echo "<br>";
 
+    //print_r($objet->for_dekrip("0011999361",$paaa));
+//    echo "<br>".$objet->for_dekrip(1);
     require "kripto_side/playfair.php";
     $objek = new playfair();
 //    $array_kunci = $objek ->BuatKunci();
@@ -41,6 +56,7 @@
     else {
         $role = "kosong";
     }
+    $no_jabatan = $data['nip'];
 ?>
 <!DOCTYPE html>
 <html>
@@ -234,7 +250,7 @@
         
       <?php  while ($datajalan = mysqli_fetch_array($berlangsung)) {?>
 			<tr>
-				<td><?php echo $datajalan['no_disposisi']; ?></td>
+				<td><?php print_r($objet ->for_dekrip($no_jabatan, $datajalan['no_disposisi'])) ; ?></td>
 				<td><?php echo $datajalan['nama']; ?></td>
 				<td><?php echo $datajalan['status']; ?></td>
 			</tr>

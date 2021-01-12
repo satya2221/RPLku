@@ -1,9 +1,13 @@
 <?php   
     include "proses/koneksi.php";
     require "kripto_side/playfair.php";
+    require "kripto_side/angka_inisiasi.php";
 
     session_start();
+
     $playfair = new playfair();
+    $rsa = new angka_inisiasi();
+
     if (empty($_SESSION['email'])) {
         header("location:login.php?pesan=belum_login");
     }
@@ -18,6 +22,7 @@
     // $querysurat = mysqli_query($link,"SELECT * FROM surat where no_surat= '$no_surat'");
     // $datasurat = mysqli_fetch_array($querysurat);
     $datadisposisi = mysqli_fetch_array($querydisp);
+    $no_jabatan = $data['nip'];
 ?>
 <!DOCTYPE html>
 <html>
@@ -76,7 +81,7 @@
 <div class="container my-1">
     <center class="mt-2">
     <h1>Detail</h1>
-    <h3><strong><?php echo $datadisposisi['no_disposisi']; ?></strong></h3>
+    <h3><strong><?php print_r($rsa ->for_dekrip($no_jabatan, $datadisposisi['no_disposisi'])); ?></strong></h3>
     <a href="detail_surat.php?isi_surat=<?php echo $datadisposisi['isi_surat']; ?>" target="blank"><button class="btn btn-outline-danger mb-2 mx-1">Lihat Surat</button></a>
 
     <a href="detail_surat.php?isi_surat=<?php echo $datadisposisi['isi_disposisi']; ?>" target="blank"><button class="btn btn-outline-danger mb-2 mx-1">Lihat Disposisi</button></a>
@@ -94,7 +99,7 @@
     <center>
     <label for="input_no_surat"><h5>No Disposisi</h5></label>
     </center>
-      <h4><input type="text" class="form-control-plaintext" id="input_no_surat" value="<?php echo $datadisposisi['no_disposisi'];?>" name="no_disposisi" readonly style="text-align: center"></h4>
+      <h4><input type="text" class="form-control-plaintext" id="input_no_surat" value="<?php print_r($rsa ->for_dekrip($no_jabatan, $datadisposisi['no_disposisi']));?>" name="no_disposisi" readonly style="text-align: center"></h4>
   </div>
   <div class="form-group col-md-6">
     <center>
@@ -108,7 +113,7 @@
       <center>
       <label for="input_no_surat"><h5>No Surat</h5></label>
       </center>
-      <h4><input type="text" class="form-control-plaintext" id="input_no_surat" name="no_surat" readonly value="<?php echo $datadisposisi['no_surat'];?>" style="text-align: center"></h4>
+      <h4><input type="text" class="form-control-plaintext" id="input_no_surat" name="no_surat" readonly value="<?php print_r($rsa ->for_dekrip($no_jabatan, $datadisposisi['no_surat'])) ;?>" style="text-align: center"></h4>
     </div>
     <div class="form-group col-md-6">
       <center>
