@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 13, 2020 at 04:41 AM
+-- Generation Time: Jan 13, 2021 at 11:02 AM
 -- Server version: 5.7.24
--- PHP Version: 7.2.19
+-- PHP Version: 7.4.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -29,10 +29,10 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `arsip` (
-  `no_arsip` varchar(30) NOT NULL,
-  `no_surat` varchar(20) NOT NULL,
+  `no_arsip` varchar(255) NOT NULL,
+  `no_surat` varchar(255) NOT NULL,
   `isi_surat` varchar(255) NOT NULL,
-  `no_disposisi` varchar(30) NOT NULL,
+  `no_disposisi` varchar(255) NOT NULL,
   `isi_disposisi` varchar(255) NOT NULL,
   `isi_lpj` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -42,9 +42,7 @@ CREATE TABLE `arsip` (
 --
 
 INSERT INTO `arsip` (`no_arsip`, `no_surat`, `isi_surat`, `no_disposisi`, `isi_disposisi`, `isi_lpj`) VALUES
-('001/22042020/1/ars', '001/22042020/1', 'C_123180051_Satya Ghifari A..pdf', '001/22042020/1/disp', 'tugas A,B,C,D 2020.pdf', 'UTS 2019-2020 genap.pdf'),
-('002/21042020/5/ars', '002/21042020/5', 'certif sololearn.pdf', '002/21042020/5/disp', 'FIX SERTIFIKAT AI JULI-10.pdf', 'Sertifikat Kelulusan Belajar Dasar Pemrograman Web.pdf'),
-('005/21042020/2/ars', '005/21042020/2', 'tiket1.pdf', '005/21042020/2/disp', 'tiket2.pdf', 'UTS_PBO_IF_ Genap_2019_2020.pdf');
+('13739235512|40773165066|36284960526|18996080706|18727863387|23486668705', '13739235512|40773165066|36284960526|18996080706', 'Tugas1_B_123180051_Satya G.A.pdf', '13739235512|40773165066|36284960526|18996080706|11165263371|12626778865', 'B_Tugas 7_123180049_Nicholas Nanda Sulaksana.pdf', 'Tugas4_B_123180051_Satya Ghifari A.pdf');
 
 -- --------------------------------------------------------
 
@@ -53,12 +51,12 @@ INSERT INTO `arsip` (`no_arsip`, `no_surat`, `isi_surat`, `no_disposisi`, `isi_d
 --
 
 CREATE TABLE `lembar_disposisi` (
-  `no_disposisi` varchar(30) NOT NULL,
+  `no_disposisi` varchar(255) NOT NULL,
   `isi_surat` varchar(255) NOT NULL,
-  `no_surat` varchar(20) NOT NULL,
+  `no_surat` varchar(255) NOT NULL,
   `tgl_terbit` date NOT NULL,
   `isi_disposisi` varchar(255) NOT NULL,
-  `disposisi_kejari` varchar(100) NOT NULL,
+  `disposisi_kejari` varchar(255) NOT NULL,
   `nip_pelaksana` char(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -67,9 +65,8 @@ CREATE TABLE `lembar_disposisi` (
 --
 
 INSERT INTO `lembar_disposisi` (`no_disposisi`, `isi_surat`, `no_surat`, `tgl_terbit`, `isi_disposisi`, `disposisi_kejari`, `nip_pelaksana`) VALUES
-('001/22042020/1/disp', 'C_123180051_Satya Ghifari A..pdf', '001/22042020/1', '2020-04-22', 'tugas A,B,C,D 2020.pdf', 'Bertemu bapak a terlebih dahulu', '0042005361'),
-('002/21042020/5/disp', 'certif sololearn.pdf', '002/21042020/5', '2020-04-21', 'FIX SERTIFIKAT AI JULI-10.pdf', '- hati-hati dijalan', '0032008361'),
-('005/21042020/2/disp', 'tiket1.pdf', '005/21042020/2', '2020-04-21', 'tiket2.pdf', 'hadiri dengan baik', '0042005361');
+('13739235512|40773165066|36284960526|18996080706|11165263371|12626778865', 'Tugas1_B_123180051_Satya G.A.pdf', '13739235512|40773165066|36284960526|18996080706', '2021-01-12', 'B_Tugas 7_123180049_Nicholas Nanda Sulaksana.pdf', 'WVMPBN RBAVW DNOWAH AGWSMKU', '0032008361'),
+('32516739399|14609235478|36284960526|9832450707|11165263371|12626778865', 'SOAL TRANPORTASI.pdf', '32516739399|14609235478|36284960526|9832450707', '2021-01-13', '001/13012021/1/disp.pdf', 'ISAWHNTYB UFBATMSGHSB AVBDA DSBN DTYA BBH', '0042005361');
 
 -- --------------------------------------------------------
 
@@ -79,7 +76,7 @@ INSERT INTO `lembar_disposisi` (`no_disposisi`, `isi_surat`, `no_surat`, `tgl_te
 
 CREATE TABLE `melaksanakan` (
   `nip_pelaksana` char(10) NOT NULL,
-  `no_disposisi` varchar(30) NOT NULL,
+  `no_disposisi` varchar(255) NOT NULL,
   `resp` varchar(100) NOT NULL,
   `LPJ` varchar(255) NOT NULL,
   `status` varchar(15) NOT NULL
@@ -90,9 +87,7 @@ CREATE TABLE `melaksanakan` (
 --
 
 INSERT INTO `melaksanakan` (`nip_pelaksana`, `no_disposisi`, `resp`, `LPJ`, `status`) VALUES
-('0032008361', '002/21042020/5/disp', 'Siap laksanakan terimakasih', 'Sertifikat Kelulusan Belajar Dasar Pemrograman Web.pdf', 'selesai'),
-('0042005361', '001/22042020/1/disp', 'siap pak saya laksanakan setelah ini', 'UTS 2019-2020 genap.pdf', 'selesai'),
-('0042005361', '005/21042020/2/disp', 'Siap laksanakan terimakasih', 'UTS_PBO_IF_ Genap_2019_2020.pdf', 'selesai');
+('0032008361', '13739235512|40773165066|36284960526|18996080706|11165263371|12626778865', 'MIWH DISB ATDT WOMHAW MIWH MIWH', 'Tugas4_B_123180051_Satya Ghifari A.pdf', 'selesai');
 
 -- --------------------------------------------------------
 
@@ -113,11 +108,11 @@ CREATE TABLE `pegawai` (
 --
 
 INSERT INTO `pegawai` (`nip`, `nama`, `jabatan`, `email`, `pass`) VALUES
-('0011999361', 'Luhur Istighfar', 'Kepala Kantor', 'luhurip@yahoo.com', 'srondoly7'),
-('0022002361', 'I Made Wayan Kusuma', 'Sekretaris', 'wayankusuma@gmail.com', 'baliindah'),
-('0032008361', 'Ismail bin Mail', 'Kepala Bagian', 'mailismail@gmail.com', 'duasinggit'),
-('0042005361', 'Nur Archibald', 'Kepala Bagian', 'archibald17@gmail.com', 'kapten17'),
-('0101997361', 'Sofie Hanna', 'Petugas TU', 'sofie75@gmail.com', 'kemanakita');
+('0011999361', 'Luhur Istighfar', 'Kepala Kantor', 'luhurip@yahoo.com', '7e044b3216dc65162d37bf6348e306b3'),
+('0022002361', 'I Made Wayan Kusuma', 'Sekretaris', 'wayankusuma@gmail.com', '342527b2c4fd7d5533d6b2a36a71f39d'),
+('0032008361', 'Ismail bin Mail', 'Kepala Bagian', 'mailismail@gmail.com', '8d754c603dfb0dd79be9caa238ff97a4'),
+('0042005361', 'Nur Archibald', 'Kepala Bagian', 'archibald17@gmail.com', '5aaf94fcf075502dc1f65cdbf10ab07f'),
+('0101997361', 'Sofie Hanna', 'Petugas TU', 'sofie75@gmail.com', '60b45d8546dd90e456ee7efae698c874');
 
 -- --------------------------------------------------------
 
@@ -126,7 +121,7 @@ INSERT INTO `pegawai` (`nip`, `nama`, `jabatan`, `email`, `pass`) VALUES
 --
 
 CREATE TABLE `surat` (
-  `no_surat` varchar(20) NOT NULL,
+  `no_surat` varchar(255) NOT NULL,
   `tgl_input` date NOT NULL,
   `nip_pengisi` char(10) NOT NULL,
   `isi_surat` varchar(255) NOT NULL
@@ -137,9 +132,8 @@ CREATE TABLE `surat` (
 --
 
 INSERT INTO `surat` (`no_surat`, `tgl_input`, `nip_pengisi`, `isi_surat`) VALUES
-('001/22042020/1', '2020-04-22', '0101997361', 'C_123180051_Satya Ghifari A..pdf'),
-('002/21042020/5', '2020-04-21', '0101997361', 'certif sololearn.pdf'),
-('005/21042020/2', '2020-04-21', '0101997361', 'tiket1.pdf');
+('13739235512|40773165066|36284960526|18996080706', '2021-01-12', '0101997361', 'Tugas1_B_123180051_Satya G.A.pdf'),
+('32516739399|14609235478|36284960526|9832450707', '2021-01-13', '0101997361', 'SOAL TRANPORTASI.pdf');
 
 --
 -- Indexes for dumped tables
@@ -197,32 +191,32 @@ ALTER TABLE `surat`
 -- Constraints for table `arsip`
 --
 ALTER TABLE `arsip`
-  ADD CONSTRAINT `fk_isi_disposisi_arsip` FOREIGN KEY (`isi_disposisi`) REFERENCES `lembar_disposisi` (`isi_disposisi`),
-  ADD CONSTRAINT `fk_isi_lpj_arsip` FOREIGN KEY (`isi_lpj`) REFERENCES `melaksanakan` (`LPJ`),
-  ADD CONSTRAINT `fk_isi_surat_arsip` FOREIGN KEY (`isi_surat`) REFERENCES `surat` (`isi_surat`),
-  ADD CONSTRAINT `fk_no_disposisi_arsip` FOREIGN KEY (`no_disposisi`) REFERENCES `lembar_disposisi` (`no_disposisi`),
-  ADD CONSTRAINT `fk_no_surat_arsip` FOREIGN KEY (`no_surat`) REFERENCES `surat` (`no_surat`);
+  ADD CONSTRAINT `fk_isi_disposisi_arsip` FOREIGN KEY (`isi_disposisi`) REFERENCES `lembar_disposisi` (`isi_disposisi`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_isi_lpj_arsip` FOREIGN KEY (`isi_lpj`) REFERENCES `melaksanakan` (`LPJ`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_isi_surat_arsip` FOREIGN KEY (`isi_surat`) REFERENCES `surat` (`isi_surat`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_no_disposisi_arsip` FOREIGN KEY (`no_disposisi`) REFERENCES `lembar_disposisi` (`no_disposisi`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_no_surat_arsip` FOREIGN KEY (`no_surat`) REFERENCES `surat` (`no_surat`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `lembar_disposisi`
 --
 ALTER TABLE `lembar_disposisi`
-  ADD CONSTRAINT `fk_isi_surat` FOREIGN KEY (`isi_surat`) REFERENCES `surat` (`isi_surat`),
-  ADD CONSTRAINT `fk_nip_pelaksana` FOREIGN KEY (`nip_pelaksana`) REFERENCES `pegawai` (`nip`),
-  ADD CONSTRAINT `fk_no_surat` FOREIGN KEY (`no_surat`) REFERENCES `surat` (`no_surat`);
+  ADD CONSTRAINT `fk_isi_surat` FOREIGN KEY (`isi_surat`) REFERENCES `surat` (`isi_surat`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_nip_pelaksana` FOREIGN KEY (`nip_pelaksana`) REFERENCES `pegawai` (`nip`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_no_surat` FOREIGN KEY (`no_surat`) REFERENCES `surat` (`no_surat`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `melaksanakan`
 --
 ALTER TABLE `melaksanakan`
-  ADD CONSTRAINT `fk_disposisi` FOREIGN KEY (`no_disposisi`) REFERENCES `lembar_disposisi` (`no_disposisi`),
-  ADD CONSTRAINT `fk_nip_laksanakan` FOREIGN KEY (`nip_pelaksana`) REFERENCES `pegawai` (`nip`);
+  ADD CONSTRAINT `fk_disposisi` FOREIGN KEY (`no_disposisi`) REFERENCES `lembar_disposisi` (`no_disposisi`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_nip_laksanakan` FOREIGN KEY (`nip_pelaksana`) REFERENCES `pegawai` (`nip`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `surat`
 --
 ALTER TABLE `surat`
-  ADD CONSTRAINT `fk_nip` FOREIGN KEY (`nip_pengisi`) REFERENCES `pegawai` (`nip`);
+  ADD CONSTRAINT `fk_nip` FOREIGN KEY (`nip_pengisi`) REFERENCES `pegawai` (`nip`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

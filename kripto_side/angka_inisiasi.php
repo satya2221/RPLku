@@ -50,7 +50,7 @@ class angka_inisiasi
         $n = $this->find_p() * $this->find_q();
         return $n;
     }
-    public function o_n(){
+    private function o_n(){
         $O_n =  ($this->find_p() - 1 ) * ($this->find_q() - 1);
         return $O_n;
     }
@@ -89,13 +89,13 @@ class angka_inisiasi
     }
     public function enkrip($pesan){
         $ascii_nya = implode(unpack("C*",$pesan)); //C* berarti ke unsigned char
-        echo "ascii = ".$ascii_nya."<br>";
+        //echo "ascii = ".$ascii_nya."<br>";
         $cipher = array();
         $pecahan = $this->rombak($ascii_nya);
         foreach($pecahan as $value){
-            echo $value."<br>";
+            //echo $value."<br>";
             $hasil = bcpowmod($value,$this->find_e(),$this->find_n()) ;
-            echo $hasil."<br>";
+            //echo $hasil."<br>";
             array_push($cipher,$hasil);
         }
         return implode("|",$cipher);
